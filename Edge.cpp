@@ -14,16 +14,6 @@ void Edge::operator=(const Edge& other)
 	pri = other.pri;
 }
 
-void Edge::setID(int _id)
-{
-	id = _id;
-}
-
-int Edge::getID()
-{
-	return id;
-}
-
 void Edge::setPri(double _pri)
 {
 	pri = _pri;
@@ -34,7 +24,7 @@ double Edge::getPri() const
 	return pri;
 }
 
-bool operator<(const Edge& a,const Edge& b)
+bool operator<(const Edge& a,const Edge& b)//重载小于
 {
 	return (bool)(a.getPri() > b.getPri());
 }

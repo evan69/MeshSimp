@@ -15,15 +15,15 @@ public:
 	Point(double,double,double);
 	~Point();
 
-	int getId();
-	void setId(int);
+	int getId();//获取id
+	void setId(int);//设置id
 
-	bool isAdjoin(int);
-	void addAdjoin(int p);
+	bool isAdjoin(int);//判断另一个点是否在该点邻域内
+	void addAdjoin(int p);//添加到邻域
 	void noCheckAddAdjoin(int p);
-	void removeAdjoin(int);
+	void removeAdjoin(int);//从邻域中去掉
 
-	friend bool operator==(const Point& a,const Point& b);
+	friend bool operator==(const Point& a,const Point& b);//判等
 };
 
 #endif

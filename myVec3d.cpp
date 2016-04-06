@@ -18,14 +18,7 @@ myVec3d::~myVec3d()
 {
 
 }
-/*
-myVec3d::myVec3d(myVec3d& v)
-{
-	this->x = v.x;
-	this->y = v.y;
-	this->z = v.z;
-}
-*/
+
 myVec3d operator + ( const myVec3d& A , const myVec3d& B ) {
 	return myVec3d( A.x + B.x , A.y + B.y , A.z + B.z );
 }
@@ -51,22 +44,22 @@ myVec3d& operator += ( myVec3d& A , const myVec3d& B ) {
 	return A;
 }
 
-myVec3d& operator -= ( myVec3d& A , const myVec3d& B ) {
+myVec3d& operator -= ( myVec3d& A, const myVec3d& B) {
 	A = A - B;
 	return A;
 }
 
-myVec3d& operator *= ( myVec3d& A , const double& k ) {
+myVec3d& operator *= ( myVec3d& A , const double& k) {
 	A = A * k;
 	return A;
 }
 
-myVec3d& operator /= ( myVec3d& A , const double& k ) {
+myVec3d& operator /= (myVec3d& A,const double& k) {
 	A = A / k;
 	return A;
 }
 
-myVec3d& operator *= ( myVec3d& A , const myVec3d& B ) {
+myVec3d& operator *= (myVec3d& A,const myVec3d& B) {
 	A = A * B;
 	return A;
 }
@@ -83,6 +76,6 @@ double myVec3d::Module() {
 	return sqrt( x * x + y * y + z * z );
 }
 
-myVec3d myVec3d::Cross(const myVec3d& term) {
-	return myVec3d(y * term.z - z * term.y , z * term.x - x * term.z , x * term.y - y * term.x );
+myVec3d myVec3d::Cross(const myVec3d& a) {
+	return myVec3d(y * a.z - z * a.y , z * a.x - x * a.z , x * a.y - y * a.x );
 }

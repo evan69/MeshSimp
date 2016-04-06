@@ -13,7 +13,7 @@ PointList::PointList()
 	a.setId(0);//id为0表示不是真实的点，或已经删除的点
 	point.push_back(a);//占住索引为0的位置
 	maxID = 0;
-	faceNum = 0;
+	face = 0;
 }
 
 void PointList::addPoint(Point& p)
@@ -46,16 +46,16 @@ void PointList::readin(string filename)
 		}
 		if(flag == 'f' || flag == 'F')//face
 		{
-			faceNum++;
-			int vertex[3];
-			fin >> vertex[0] >> vertex[1] >> vertex[2];
+			face++;
+			int tmp[3];
+			fin >> tmp[0] >> tmp[1] >> tmp[2];
 			for (int i = 0; i < 3; i++)
 				for (int j = 0; j < 3; j++) 
 				{
-					if(vertex[i] > vertex[j])
+					if(tmp[i] > tmp[j])
 					{
-						point[vertex[i]].addAdjoin(vertex[j]);
-						point[vertex[j]].addAdjoin(vertex[i]);
+						point[tmp[i]].addAdjoin(tmp[j]);
+						point[tmp[j]].addAdjoin(tmp[i]);
 					}
 				}
 		}
@@ -107,10 +107,10 @@ Point PointList::calVer(Edge& e)
 {
 	Point ver;
 	Mat4 m = calQ(e.u) + calQ(e.v);
-	m.mat[3][0] = 0;
-	m.mat[3][1] = 0;
-	m.mat[3][2] = 0;
-	m.mat[3][3] = 1;
+	m.mat[3][0] = 0.0;
+	m.mat[3][1] = 0.0;
+	m.mat[3][2] = 0.0;
+	m.mat[3][3] = 1.0;
 	myVec4d v = myVec4d(0,0,0,1);
 	Solver s = Solver(m,v);
 	myVec4d ret = s.solve();
@@ -120,7 +120,7 @@ Point PointList::calVer(Edge& e)
 	if(ret.data[3] > 0.001 && (ver.vec - (point[e.u].vec + point[e.v].vec) / 2).Module() < 1)
 	{
 		return ver;
-	}
+	}//若是计算出的点偏差不大，则用之
 	ver.vec = (point[e.u].vec + point[e.v].vec) / 2;
 	return ver;
 }
@@ -176,8 +176,8 @@ void PointList::shrink()
 
 void PointList::run(double alpha)
 {
-	int i = faceNum;
-	while(i > faceNum * alpha)
+	int i = face;
+	while(i > face * alpha)
 	{
 		//cout << i << endl;
 		shrink();
@@ -190,6 +190,7 @@ void PointList::output(string filename)
 	ofstream fout(filename.c_str());
 	int index = 1;
 	int cnt = 1;
+	//以下输出顶点坐标
 	while(index <= maxID)
 	{
 		if(point[index].getId() > 0)
@@ -202,6 +203,7 @@ void PointList::output(string filename)
 		index++;
 	}
 	index = 0;
+	//以下开始输出面信息
 	while(index < point.size())
 	{
 		if(point[index].getId() <= 0)

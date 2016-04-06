@@ -3,7 +3,6 @@
 #include "point.h"
 class Edge
 {
-	int id;
 	double pri;
 public:
 	int u,v;//point id
@@ -11,10 +10,8 @@ public:
 	Edge(int,int);
 
 	void operator=(const Edge& other);
-	void setID(int);
-	int getID();
-	double getPri() const;
-	void setPri(double);
+	double getPri() const;//获取边优先级
+	void setPri(double);//设置边优先级
 	friend bool operator<(const Edge&,const Edge&);
 
 };
