@@ -43,6 +43,6 @@ myVec4d Solver::solve(double eps)//使用类里的矩阵，解非齐次线性方
 		}
 		ret.data[i] = vec.data[i] / mat.mat[i][j];
 	}
-	ret.data[4] = 1,0;
+	ret.data[4] = 1.0;
 	return ret;
 }
